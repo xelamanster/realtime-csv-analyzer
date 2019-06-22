@@ -7,6 +7,7 @@ ThisBuild / organization     := "com.github.xelamanster"
 lazy val root = (project in file("."))
   .settings(
     name := "realtime-csv-analyzer",
+    mainClass in assembly := Some("com.github.xelamanster.csvanalyzer.Runner"),
     libraryDependencies ++= dependencies,
     libraryDependencies ++= testDependencies.map(_ % Test)
   )
