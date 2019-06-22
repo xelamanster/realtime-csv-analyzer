@@ -19,6 +19,8 @@ object TaskMessage {
           val integer2 = rawInteger2.toLong
 
           TaskMessage(userId, encodedData, floatingValue, integer1, integer2)
+
+        case _ => throw new IllegalArgumentException(raw)
       }
   }
 

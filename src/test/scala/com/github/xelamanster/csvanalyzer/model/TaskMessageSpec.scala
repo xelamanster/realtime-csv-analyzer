@@ -26,6 +26,14 @@ class TaskMessageSpec extends WordSpec with Matchers {
       ByteString(message).decode() should be(expectedDecodedMessage)
     }
 
+    "throw exception content has unexpected format" in {
+      val message =
+        "0977dca4-9906-3171-bcec,0.18715484122922377,982761284,8442009284719321817"
+
+      the [IllegalArgumentException] thrownBy
+        ByteString(message).decode() should have message "0977dca4-9906-3171-bcec,0.18715484122922377,982761284,8442009284719321817"
+    }
+
     "throw exception if UUID is invalid" in {
       val message =
         "0977dca4-9906-3171-bcec,kFFzW4O8gXURgP8ShsZ0gcnNT5E=,0.18715484122922377,982761284,8442009284719321817"
