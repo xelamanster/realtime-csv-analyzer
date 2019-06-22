@@ -1,6 +1,6 @@
 package com.github.xelamanster.csvanalyzer.components
 
-import com.github.xelamanster.csvanalyzer.utils.TestTimer
+import com.github.xelamanster.csvanalyzer.utils.{FileUtils, TestTimer}
 import com.github.xelamanster.csvanalyzer.utils.csv.Encoder
 
 import akka.actor.ActorSystem
@@ -48,18 +48,10 @@ class AnalysisSinkSpec extends TestKit(ActorSystem("AnalysisSinkSpec")) with Asy
 
 
   private def defaultWrite = {
-    prepareFolder(defaultFolder)
+    FileUtils.createFolderIfAbsent(defaultFolder)
     Source
       .single(defaultValue)
       .runWith(AnalysisResultSink.writeEachToTimestampedFile(defaultFolder))
-  }
-
-  private def prepareFolder(folder: Path): Unit = {
-    val folderPath = folder.toFile
-
-    if(!folderPath.exists()) {
-      folderPath.mkdir()
-    }
   }
 
   private def remove(paths: Path*): Unit =
