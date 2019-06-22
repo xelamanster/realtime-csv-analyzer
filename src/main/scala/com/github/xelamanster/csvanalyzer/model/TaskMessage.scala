@@ -13,7 +13,7 @@ object TaskMessage {
 
         case rawUserId :: encodedData :: rawFloatingValue :: rawInteger1 :: rawInteger2 :: Nil =>
 
-          val userId = UserId(UUID.fromString(rawUserId))
+          val userId = UserId(rawUserId)
           val floatingValue = rawFloatingValue.toDouble
           val integer1 = rawInteger1.toLong
           val integer2 = rawInteger2.toLong
@@ -32,5 +32,9 @@ case class TaskMessage(
     floatingValue: Double,
     integer1: Long,
     integer2: Long)
+
+object UserId {
+  def apply(id: String): UserId = new UserId(UUID.fromString(id))
+}
 
 case class UserId(id: UUID) extends AnyVal

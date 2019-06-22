@@ -113,7 +113,7 @@ class TaskMessageAnalyzerSpec extends WordSpec with Matchers {
 
     val value = defaultValue.substring(0, defaultValue.length - idString.length) + idString
 
-    UserId(UUID.fromString(value))
+    UserId(value)
   }
 
 }

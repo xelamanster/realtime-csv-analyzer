@@ -18,7 +18,7 @@ class TaskMessageAnalysisReportSpec extends WordSpec with Matchers {
           1,
           Seq(
             UserAnalysisReport(
-              UserId(UUID.fromString("b0c09889-1899-4b41-80cf-d01b32ab3222")),
+              UserId("b0c09889-1899-4b41-80cf-d01b32ab3222"),
               2.34,
               24425),
           )
