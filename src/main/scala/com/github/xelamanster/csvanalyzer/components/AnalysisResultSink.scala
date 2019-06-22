@@ -8,21 +8,22 @@ import com.github.xelamanster.csvanalyzer.utils.csv.Format.syntax._
 
 import akka.Done
 import akka.stream.Materializer
-import akka.stream.scaladsl.{FileIO, Sink, Source}
+import akka.stream.scaladsl.{FileIO, Flow, Keep, Sink, Source}
 
 import scala.concurrent.Future
 
 object AnalysisResultSink {
-
+  val FileIOParallelism = 1
   val DefaultFileNameExtension = ".txt"
 
   def writeEachToTimestampedFile[T : Encoder](folder: Path)
                                              (implicit materializer: Materializer, timer: Timer): Sink[T, Future[Done]]=
-  Sink.foreach { v =>
-    Source.single(v)
-      .map(_.encode())
-      .runWith(toTimestampedFile(folder, timer))
-  }
+    Flow[T].mapAsync(FileIOParallelism) { v =>
+      Source.single(v)
+        .map(_.encode())
+        .runWith(toTimestampedFile(folder, timer))
+    }.toMat(Sink.ignore)(Keep.right)
+
   private def toTimestampedFile(folder: Path, timer: Timer) =
     FileIO.toPath(folder.resolve(timestampedFilename(timer)))
 

@@ -11,7 +11,7 @@ import java.nio.file.{Path, Paths}
 
 import org.scalatest._
 
-import scala.util.{Success, Using}
+import scala.util.Using
 
 class AnalysisSinkSpec extends TestKit(ActorSystem("SimpleStreaming"))  with AsyncWordSpecLike with Matchers {
   val time = 123
@@ -39,23 +39,20 @@ class AnalysisSinkSpec extends TestKit(ActorSystem("SimpleStreaming"))  with Asy
 
     "write correct content to the file" in defaultWrite.map { _ =>
       val contentReadAttempt =
-        Using(io.Source.fromFile(expectedFile.toFile))(_.mkString)
+        Using.resource(io.Source.fromFile(expectedFile.toFile))(_.mkString)
 
       remove(expectedFile, defaultFolder)
 
-      contentReadAttempt should be(Success(defaultValue))
+      contentReadAttempt should be(defaultValue)
     }
   }
 
 
   private def defaultWrite = {
-    val sink = AnalysisResultSink.writeEachToTimestampedFile(defaultFolder)
-
     prepareFolder(defaultFolder)
-
     Source
       .single(defaultValue)
-      .runWith(sink)
+      .runWith(AnalysisResultSink.writeEachToTimestampedFile(defaultFolder))
   }
 
   private def prepareFolder(folder: Path): Unit = {
