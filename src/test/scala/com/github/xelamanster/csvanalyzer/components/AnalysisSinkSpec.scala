@@ -13,13 +13,12 @@ import org.scalatest._
 
 import scala.util.Using
 
-class AnalysisSinkSpec extends TestKit(ActorSystem("SimpleStreaming"))  with AsyncWordSpecLike with Matchers {
-  val time = 123
-  implicit val timer = new TestTimer(time)
-  implicit val materializer = ActorMaterializer.create(system)
-  implicit val ec = system.dispatcher
+class AnalysisSinkSpec extends TestKit(ActorSystem("AnalysisSinkSpec")) with AsyncWordSpecLike with Matchers {
+  private val time = 123
+  private implicit val timer = new TestTimer(time)
+  private implicit val materializer = ActorMaterializer.create(system)
 
-  implicit val stringEncoder = new Encoder[String] {
+  private implicit val stringEncoder = new Encoder[String] {
     override def encodeString(v: String): String = v
   }
 
