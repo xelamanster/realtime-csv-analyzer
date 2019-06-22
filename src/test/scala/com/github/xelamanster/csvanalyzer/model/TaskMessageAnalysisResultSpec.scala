@@ -1,11 +1,11 @@
 package com.github.xelamanster.csvanalyzer.model
 
-import java.util.UUID
-
-import akka.util.ByteString
 import com.github.xelamanster.csvanalyzer.utils.csv.Format.syntax._
 import com.github.xelamanster.csvanalyzer.model.TaskMessageAnalysisResult.implicits._
+
+import akka.util.ByteString
 import org.scalatest._
+import java.util.UUID
 
 class TaskMessageAnalysisResultSpec extends WordSpec with Matchers {
 
