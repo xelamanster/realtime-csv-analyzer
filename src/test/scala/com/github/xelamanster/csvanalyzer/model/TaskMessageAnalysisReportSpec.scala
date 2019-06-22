@@ -1,23 +1,23 @@
 package com.github.xelamanster.csvanalyzer.model
 
 import com.github.xelamanster.csvanalyzer.utils.csv.Format.syntax._
-import com.github.xelamanster.csvanalyzer.model.TaskMessageAnalysisResult.implicits._
+import com.github.xelamanster.csvanalyzer.model.TaskMessageAnalysisReport.implicits._
 
 import akka.util.ByteString
 import org.scalatest._
 import java.util.UUID
 
-class TaskMessageAnalysisResultSpec extends WordSpec with Matchers {
+class TaskMessageAnalysisReportSpec extends WordSpec with Matchers {
 
-  "TaskMessageAnalysisResultEncoder" should {
+  "TaskMessageAnalysisReportEncoder" should {
 
-    "encode analysis result" in {
-      val analysisResult =
-        TaskMessageAnalysisResult(
+    "encode analysis report" in {
+      val analysisReport =
+        TaskMessageAnalysisReport(
           24425,
           1,
           Seq(
-            UserAnalysisResult(
+            UserAnalysisReport(
               UserId(UUID.fromString("b0c09889-1899-4b41-80cf-d01b32ab3222")),
               2.34,
               24425),
@@ -29,8 +29,8 @@ class TaskMessageAnalysisResultSpec extends WordSpec with Matchers {
           |1
           |b0c09889-1899-4b41-80cf-d01b32ab3222,2.34,24425""".stripMargin
 
-      analysisResult.encodeString() should be(expectedEncodedStringValue)
-      analysisResult.encode() should be(ByteString(expectedEncodedStringValue))
+      analysisReport.encodeString() should be(expectedEncodedStringValue)
+      analysisReport.encode() should be(ByteString(expectedEncodedStringValue))
     }
 
   }

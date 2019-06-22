@@ -3,12 +3,12 @@ package com.github.xelamanster.csvanalyzer.model
 import com.github.xelamanster.csvanalyzer.utils.csv.{Encoder, Format}
 import com.github.xelamanster.csvanalyzer.utils.csv.Format.syntax._
 
-object TaskMessageAnalysisResult {
+object TaskMessageAnalysisReport {
 
   object implicits {
 
-    implicit val taskMessageAnalysisResultEncoder: Encoder[TaskMessageAnalysisResult] =
-      (v: TaskMessageAnalysisResult) => {
+    implicit val taskMessageAnalysisReportEncoder: Encoder[TaskMessageAnalysisReport] =
+      (v: TaskMessageAnalysisReport) => {
 
         val usersAnalysis = v.usersAnalysis
           .map(_.encodeString())
@@ -19,16 +19,16 @@ object TaskMessageAnalysisResult {
            |${usersAnalysis}""".stripMargin
       }
 
-    implicit val userAnalysisResultEncoder: Encoder[UserAnalysisResult] =
-      (v: UserAnalysisResult) =>
+    implicit val userAnalysisReportEncoder: Encoder[UserAnalysisReport] =
+      (v: UserAnalysisReport) =>
         Seq(v.id.id, v.averageFloatingValue, v.recentInteger1)
           .mkString(Format.DefaultDelimiter)
   }
 }
 
-case class TaskMessageAnalysisResult(
+case class TaskMessageAnalysisReport(
     integer2Sum: BigInt,
     uniqueUsers: Int,
-    usersAnalysis: Seq[UserAnalysisResult])
+    usersAnalysis: Seq[UserAnalysisReport])
 
-case class UserAnalysisResult(id: UserId, averageFloatingValue: BigDecimal, recentInteger1: Long)
+case class UserAnalysisReport(id: UserId, averageFloatingValue: BigDecimal, recentInteger1: Long)

@@ -2,7 +2,7 @@ package com.github.xelamanster.csvanalyzer.components
 
 import java.util.UUID
 
-import com.github.xelamanster.csvanalyzer.model.{TaskMessage, TaskMessageAnalysisResult, UserAnalysisResult, UserId}
+import com.github.xelamanster.csvanalyzer.model.{TaskMessage, TaskMessageAnalysisReport, UserAnalysisReport, UserId}
 import org.scalatest._
 
 class TaskMessageAnalyzerSpec extends WordSpec with Matchers {
@@ -17,11 +17,11 @@ class TaskMessageAnalyzerSpec extends WordSpec with Matchers {
       )
 
       val expected =
-        TaskMessageAnalysisResult(
+        TaskMessageAnalysisReport(
           222,
           1,
           Seq(
-            UserAnalysisResult(id, 1.23, 111)
+            UserAnalysisReport(id, 1.23, 111)
           )
         )
 
@@ -36,13 +36,13 @@ class TaskMessageAnalyzerSpec extends WordSpec with Matchers {
       )
 
       val expected =
-        TaskMessageAnalysisResult(
+        TaskMessageAnalysisReport(
           667,
           3,
           Seq(
-            UserAnalysisResult(userId(1), 2.23, 211),
-            UserAnalysisResult(userId(2), 3.23, 311),
-            UserAnalysisResult(userId(0), 1.23, 111),
+            UserAnalysisReport(userId(1), 2.23, 211),
+            UserAnalysisReport(userId(2), 3.23, 311),
+            UserAnalysisReport(userId(0), 1.23, 111),
           )
         )
 
@@ -57,11 +57,11 @@ class TaskMessageAnalyzerSpec extends WordSpec with Matchers {
       )
 
       val expected =
-        TaskMessageAnalysisResult(
+        TaskMessageAnalysisReport(
           667,
           1,
           Seq(
-            UserAnalysisResult(userId(0), 2.34, 311),
+            UserAnalysisReport(userId(0), 2.34, 311),
           )
         )
 
@@ -76,11 +76,11 @@ class TaskMessageAnalyzerSpec extends WordSpec with Matchers {
       )
 
       val expected =
-        TaskMessageAnalysisResult(
+        TaskMessageAnalysisReport(
           BigInt(Long.MaxValue) * 3,
           1,
           Seq(
-            UserAnalysisResult(userId(0), 2.34, Long.MaxValue),
+            UserAnalysisReport(userId(0), 2.34, Long.MaxValue),
           )
         )
 
@@ -95,11 +95,11 @@ class TaskMessageAnalyzerSpec extends WordSpec with Matchers {
       )
 
       val expected =
-        TaskMessageAnalysisResult(
+        TaskMessageAnalysisReport(
           667,
           1,
           Seq(
-            UserAnalysisResult(userId(0), Double.MaxValue, 311),
+            UserAnalysisReport(userId(0), Double.MaxValue, 311),
           )
         )
 

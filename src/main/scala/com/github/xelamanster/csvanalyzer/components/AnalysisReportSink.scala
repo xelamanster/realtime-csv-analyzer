@@ -12,7 +12,7 @@ import akka.stream.scaladsl.{FileIO, Flow, Keep, Sink, Source}
 
 import scala.concurrent.Future
 
-object AnalysisResultSink {
+object AnalysisReportSink {
   val FileIOParallelism = 1
   val DefaultFileNameExtension = ".txt"
 

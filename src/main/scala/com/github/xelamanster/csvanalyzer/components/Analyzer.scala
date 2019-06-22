@@ -1,14 +1,14 @@
 package com.github.xelamanster.csvanalyzer.components
 
-import com.github.xelamanster.csvanalyzer.model.{TaskMessage, TaskMessageAnalysisResult, UserAnalysisResult, UserId}
+import com.github.xelamanster.csvanalyzer.model.{TaskMessage, TaskMessageAnalysisReport, UserAnalysisReport, UserId}
 
 trait Analyzer[T, R] {
   def analyze(batch: Seq[T]): R
 }
 
-class TaskMessageAnalyzer extends Analyzer[TaskMessage, TaskMessageAnalysisResult] {
+class TaskMessageAnalyzer extends Analyzer[TaskMessage, TaskMessageAnalysisReport] {
 
-  override def analyze(messages: Seq[TaskMessage]): TaskMessageAnalysisResult = {
+  override def analyze(messages: Seq[TaskMessage]): TaskMessageAnalysisReport = {
 
     val integer2Sum =
       messages
@@ -25,7 +25,7 @@ class TaskMessageAnalyzer extends Analyzer[TaskMessage, TaskMessageAnalysisResul
       messagesByUser.toSeq
         .map((analyzeUser _).tupled)
 
-    TaskMessageAnalysisResult(integer2Sum, uniqueUsers, usersAnalysis)
+    TaskMessageAnalysisReport(integer2Sum, uniqueUsers, usersAnalysis)
   }
 
   private def analyzeUser(id: UserId, userMessages: Seq[TaskMessage]) = {
@@ -35,7 +35,7 @@ class TaskMessageAnalyzer extends Analyzer[TaskMessage, TaskMessageAnalysisResul
 
     val recentInteger1 = userMessages.last.integer1
 
-    UserAnalysisResult(id, averageFloatingValue, recentInteger1)
+    UserAnalysisReport(id, averageFloatingValue, recentInteger1)
   }
 
 }

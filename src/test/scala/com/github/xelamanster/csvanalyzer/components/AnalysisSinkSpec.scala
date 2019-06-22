@@ -24,7 +24,7 @@ class AnalysisSinkSpec extends TestKit(ActorSystem("AnalysisSinkSpec")) with Asy
 
   private val defaultValue = "testValue"
   private val defaultFolder = Paths.get("testOutput")
-  private val expectedFile = defaultFolder.resolve(s"$time${AnalysisResultSink.DefaultFileNameExtension}")
+  private val expectedFile = defaultFolder.resolve(s"$time${AnalysisReportSink.DefaultFileNameExtension}")
 
   "AnalysisSink" should {
 
@@ -51,7 +51,7 @@ class AnalysisSinkSpec extends TestKit(ActorSystem("AnalysisSinkSpec")) with Asy
     FileUtils.createFolderIfAbsent(defaultFolder)
     Source
       .single(defaultValue)
-      .runWith(AnalysisResultSink.writeEachToTimestampedFile(defaultFolder))
+      .runWith(AnalysisReportSink.writeEachToTimestampedFile(defaultFolder))
   }
 
   private def remove(paths: Path*): Unit =
