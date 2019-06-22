@@ -35,7 +35,6 @@ class TaskMessageAnalyzerSpec extends WordSpec with Matchers {
         TaskMessage(userId(2), "data", 3.23, 311, 333)
       )
 
-      println(messages)
       val expected =
         TaskMessageAnalysisResult(
           667,
@@ -57,7 +56,6 @@ class TaskMessageAnalyzerSpec extends WordSpec with Matchers {
         TaskMessage(userId(0), "data", 3.25, 311, 333)
       )
 
-      println(messages)
       val expected =
         TaskMessageAnalysisResult(
           667,
@@ -77,7 +75,6 @@ class TaskMessageAnalyzerSpec extends WordSpec with Matchers {
         TaskMessage(userId(0), "data", 3.25, Long.MaxValue, Long.MaxValue)
       )
 
-      println(messages)
       val expected =
         TaskMessageAnalysisResult(
           BigInt(Long.MaxValue) * 3,
@@ -97,7 +94,6 @@ class TaskMessageAnalyzerSpec extends WordSpec with Matchers {
         TaskMessage(userId(0), "data", Double.MaxValue, 311, 333)
       )
 
-      println(messages)
       val expected =
         TaskMessageAnalysisResult(
           667,
